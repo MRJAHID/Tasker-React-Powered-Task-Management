@@ -1,4 +1,4 @@
-const TaskList = ({task,onEdit}) => {
+const TaskList = ({task,onEdit ,onDelete}) => {
     return (
         <div className="overflow-auto">
             <table className="table-fixed overflow-auto xl:w-full">
@@ -66,7 +66,7 @@ const TaskList = ({task,onEdit}) => {
                         <td className="text-center">{item.priority}</td>
                         <td>
                             <div className="flex items-center justify-center space-x-3">
-                                <button className="text-red-500">Delete</button>
+                                <button onClick={() => onDelete(item.id)} className="text-red-500">Delete</button>
                                 <button onClick={() => onEdit(item)} className="text-blue-500">Edit</button>
                             </div>
                         </td>

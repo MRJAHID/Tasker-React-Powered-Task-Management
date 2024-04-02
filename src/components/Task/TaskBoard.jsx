@@ -52,6 +52,13 @@ const TaskBoard = () => {
         setTask([...tasks]);
     }
 
+    function handleFavTask(taskId) {
+        const taskIndex = tasks.findIndex(task => task.id === taskId);
+        const newTask = [...tasks];
+        newTask[taskIndex].isFavorite = !newTask[taskIndex].isFavorite;
+        setTask(newTask);
+    }
+
     return (
         <section className="mb-20" id="tasks">
 
@@ -66,8 +73,10 @@ const TaskBoard = () => {
 
                 <div
                     className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
+
                     <TaskActions onAddTask={() => setShowAddModal(true)} onDeleteAllTask={handleDeleteAllTask}/>
-                    <TaskList task={tasks} onEdit={handleEditTask} onDelete={handleDeleteTask}/>
+
+                    <TaskList task={tasks} onEdit={handleEditTask} onDelete={handleDeleteTask} onFavourite={handleFavTask}/>
                 </div>
             </div>
         </section>

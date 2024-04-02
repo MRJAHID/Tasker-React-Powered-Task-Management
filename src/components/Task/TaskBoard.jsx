@@ -57,7 +57,15 @@ const TaskBoard = () => {
         const newTask = [...tasks];
         newTask[taskIndex].isFavorite = !newTask[taskIndex].isFavorite;
         setTask(newTask);
-    }
+     }
+
+     function handleSearch(searchTerm) {
+         const filteredTask = tasks.filter(task => {
+             task.title.toLowerCase().includes(searchTerm.toLowerCase());
+         })
+
+         setTask([...filteredTask]);
+     }
 
     return (
         <section className="mb-20" id="tasks">
@@ -68,7 +76,7 @@ const TaskBoard = () => {
 
             <div className="container">
                 <div className="p-2 flex justify-end">
-                    <SearchTask/>
+                    <SearchTask onSearch={handleSearch}/>
                 </div>
 
                 <div

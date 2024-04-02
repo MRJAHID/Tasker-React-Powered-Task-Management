@@ -3,6 +3,7 @@ import TaskActions from "./TaskActions.jsx";
 import TaskList from "./TaskList.jsx";
 import {useState} from "react";
 import AddTaskModal from "./AddTaskModal.jsx";
+import ErrorTask from "../ErrorTask.jsx";
 
 const TaskBoard = () => {
     const defaultTask = {
@@ -83,8 +84,10 @@ const TaskBoard = () => {
                     className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
 
                     <TaskActions onAddTask={() => setShowAddModal(true)} onDeleteAllTask={handleDeleteAllTask}/>
+                    {
+                        tasks.length > 0 ? (<TaskList task={tasks} onEdit={handleEditTask} onDelete={handleDeleteTask} onFavourite={handleFavTask}/>) : (<ErrorTask/>)
+                    }
 
-                    <TaskList task={tasks} onEdit={handleEditTask} onDelete={handleDeleteTask} onFavourite={handleFavTask}/>
                 </div>
             </div>
         </section>

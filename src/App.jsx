@@ -1,10 +1,15 @@
 import './App.css'
+import Header from "./components/Header/Header.jsx";
+import Hero from "./components/Hero/Hero.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 
 function App() {
 
     return (
         <>
-            <h1>Jahid Bhuiyan</h1>
+            <Header/>
+            <Hero/>
+            <Footer/>
         </>
     )
 }

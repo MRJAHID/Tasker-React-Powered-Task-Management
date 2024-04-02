@@ -13,15 +13,19 @@ const TaskBoard = () => {
         'priority': 'High',
         'isFavorite': true,
     }
-    const [task, setTask] = useState([defaultTask]);
+    const [tasks, setTask] = useState([defaultTask]);
     const [showAddModal, setShowAddModal] = useState(false);
 
+    function handleAddTask(newTask) {
+        setTask([...tasks, newTask]);
+        setShowAddModal(false);
+    }
 
     return (
         <section className="mb-20" id="tasks">
 
             {/* Show Modal */}
-            {showAddModal && <AddTaskModal/>}
+            {showAddModal && <AddTaskModal onSave={handleAddTask}/>}
 
             <div className="container">
                 <div className="p-2 flex justify-end">
@@ -31,7 +35,7 @@ const TaskBoard = () => {
                 <div
                     className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
                     <TaskActions onAddTask={() => setShowAddModal(true)}/>
-                    <TaskList task={task}/>
+                    <TaskList task={tasks}/>
                 </div>
             </div>
         </section>

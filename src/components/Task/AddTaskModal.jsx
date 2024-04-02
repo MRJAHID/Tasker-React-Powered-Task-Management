@@ -1,4 +1,32 @@
-const AddTaskModal = () => {
+import {useState} from "react";
+
+const AddTaskModal = ({onSave}) => {
+    const [task, setTask] = useState({
+        'id': crypto.randomUUID(),
+        'title': "",
+        'description': "",
+        'tags': [],
+        'priority': '',
+        'isFavorite': false,
+    })
+
+    // Dynamically Change value of every field
+    function handleChange(e) {
+
+        const name = e.target.name;
+        let value = e.target.value;
+
+        if (name === "tags") {
+            value = value.split(',');
+        }
+
+        setTask({
+            ...task,
+            [name]: value,
+
+        })
+    }
+
     return (
         <>
             <div className='bg-black h-full w-full bg-opacity-70 z-10 absolute top-0 left-0'></div>
@@ -20,6 +48,8 @@ const AddTaskModal = () => {
                             className="block w-full rounded-md bg-[#2D323F] px-3 py-2.5"
                             type="text"
                             name="title"
+                            value={task.title}
+                            onChange={handleChange}
                             id="title"
                             required
                         />
@@ -31,6 +61,8 @@ const AddTaskModal = () => {
                             className="block min-h-[120px] w-full rounded-md bg-[#2D323F] px-3 py-2.5 lg:min-h-[180px]"
                             type="text"
                             name="description"
+                            value={task.description}
+                            onChange={handleChange}
                             id="description"
                             required
                         ></textarea>
@@ -46,6 +78,8 @@ const AddTaskModal = () => {
                                 className="block w-full rounded-md bg-[#2D323F] px-3 py-2.5"
                                 type="text"
                                 name="tags"
+                                value={task.tags}
+                                onChange={handleChange}
                                 id="tags"
                                 required
                             />
@@ -56,13 +90,15 @@ const AddTaskModal = () => {
                             <select
                                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                                 name="priority"
+                                value={task.priority}
+                                onChange={handleChange}
                                 id="priority"
                                 required
                             >
                                 <option value="">Select Priority</option>
-                                <option value="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
                             </select>
                         </div>
                     </div>
@@ -70,6 +106,7 @@ const AddTaskModal = () => {
                 {/* <!-- inputs ends -->*/}
                 <div className="mt-16 flex justify-center lg:mt-20">
                     <button
+                        onClick={() => onSave(task)}
                         type="submit"
                         className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
                     >

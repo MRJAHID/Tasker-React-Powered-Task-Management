@@ -1,7 +1,7 @@
 import {useState} from "react";
 
-const AddTaskModal = ({onSave}) => {
-    const [task, setTask] = useState({
+const AddTaskModal = ({taskToUpdate, onSave}) => {
+    const [task, setTask] = useState(taskToUpdate || {
         'id': crypto.randomUUID(),
         'title': "",
         'description': "",
@@ -9,6 +9,8 @@ const AddTaskModal = ({onSave}) => {
         'priority': '',
         'isFavorite': false,
     })
+
+    const [isAdd, setIsAdd] = useState(Object.is(taskToUpdate, null))
 
     // Dynamically Change value of every field
     function handleChange(e) {
@@ -36,7 +38,7 @@ const AddTaskModal = ({onSave}) => {
                 <h2
                     className="mb-9 text-center text-2xl font-bold text-white lg:mb-11 lg:text-[28px]"
                 >
-                    Add New Task
+                    {isAdd ? 'Add New Task' : 'Edit Task'}
                 </h2>
 
                 {/* <!-- inputs -->*/}
@@ -106,11 +108,11 @@ const AddTaskModal = ({onSave}) => {
                 {/* <!-- inputs ends -->*/}
                 <div className="mt-16 flex justify-center lg:mt-20">
                     <button
-                        onClick={() => onSave(task)}
+                        onClick={() => onSave(task, isAdd)}
                         type="submit"
                         className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
                     >
-                        Create new Task
+                        {isAdd ? 'Create New Task' : 'Update Task'}
                     </button>
                 </div>
             </form>
